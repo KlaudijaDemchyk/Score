@@ -1,31 +1,44 @@
 import React, { useState } from 'react';
 import StudentsTable from './components/StudentsTable';
-import './App.css'; 
+import './App.css';  
 
 const App = () => {
   const [students, setStudents] = useState([
-    { name: 'Андрій', score: 200 },
-    { name: 'Світлана', score: 100 },
-    { name: 'Людмила', score: 50 },
-    { name: 'Іван', score: 0 },
+    {
+      name: 'Андрій',
+      score: 2
+    },{
+      name: 'Світлана',
+      score: 100
+    },
+    {
+      name: 'Людмила',
+      score: 50
+    },
+    {
+      name: 'Іван',
+      score: 0
+    }
   ]);
 
-  const updateScore = (name, score) => {
-    const updatedStudents = students.map(student => {
+  const updateScore = (name, newScore) => {
+    if (newScore < 0 || newScore > 100) {
+      alert("Бали повинні бути в діапазоні від 0 до 100");
+      return;
+    }
+
+    const newStudents = students.map(student => {
       if (student.name === name) {
-        return { ...student, score };
+        return { ...student, score: newScore };
       }
-
       return student;
-    });
+    }).sort((a, b) => b.score - a.score);
 
-    
-    updatedStudents.sort((a, b) => b.score - a.score);
+    setStudents(newStudents);
+  }
 
-    setStudents(updatedStudents);
-  };
-
-  const averageScore = students.reduce((sum, student) => sum + student.score, 0) / students.length;
+  const totalScore = students.reduce((total, student) => total + student.score, 0);
+  const averageScore = students.length ? totalScore / students.length : 0;
 
   return (
     <div className="container">
@@ -36,6 +49,6 @@ const App = () => {
       </div>
     </div>
   );
-};
+}
 
 export default App;
