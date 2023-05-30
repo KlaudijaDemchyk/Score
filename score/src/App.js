@@ -5,15 +5,16 @@ import './App.css';
 const App = () => {
   const [students, setStudents] = useState([
     {
-      name: 'Андрій',
-      score: 2
-    },{
       name: 'Світлана',
       score: 100
     },
     {
       name: 'Людмила',
       score: 50
+    },
+    {
+      name: 'Андрій',
+      score: 20
     },
     {
       name: 'Іван',
